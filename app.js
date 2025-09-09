@@ -19,5 +19,5 @@ submitBtn.addEventListener("click", () => {
 });
 
 restartBtn.addEventListener("click", () => {
-  quizApp.reset();
+quizApp.reset(quiz);
 });
