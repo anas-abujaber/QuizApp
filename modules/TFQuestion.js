@@ -6,7 +6,7 @@ export class TFQuestion extends Question {
     this.correct = !!correct; // تأكيد boolean
   }
 
-  create() {
+  create(onSelect) {
     const wrap = this.makeStructure();
     const opts = wrap.querySelector(".options-answer");
 
@@ -17,17 +17,15 @@ export class TFQuestion extends Question {
       btn.textContent = label;
       btn.dataset.index = i;
 
+      if (this.selectedIndex === i) {
+        btn.classList.add("active");
+      }
+
       btn.addEventListener("click", () => {
-        if (btn.classList.contains("active")) {
-          btn.classList.remove("active");
-          this.selectedIndex = null;
-          return;
-        }
-
         opts.querySelector(".option.active")?.classList.remove("active");
-
         btn.classList.add("active");
         this.selectedIndex = i;
+        onSelect();
       });
 
       opts.append(btn);

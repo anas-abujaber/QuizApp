@@ -1,12 +1,29 @@
+import Storage from "./storage/storage.js";
+
 export class QuizController {
   constructor(data) {
     this.data = data;
+    this.storage = new Storage("quiz_answers");
+    this.restore();
   }
 
   loadQuestions(container) {
-    container.innerHTML = ""; 
-    this.data.forEach((q) => {
-      container.append(q.create());
+    container.innerHTML = "";
+    this.data.forEach((q) => container.append(q.create(() => this.save())));
+  }
+
+  save() {
+    this.storage.saveAll(
+      this.data
+        .filter((q) => q.selectedIndex !== null)
+        .map((q) => ({ id: q.id, selectedIndex: q.selectedIndex }))
+    );
+  }
+
+  restore() {
+    (this.storage.load() || []).forEach((s) => {
+      const q = this.data.find((q) => q.id === s.id);
+      if (q) q.selectedIndex = s.selectedIndex;
     });
   }
   grade() {
@@ -17,9 +34,8 @@ export class QuizController {
   }
 
   reset(container) {
-    this.data.forEach((q) => {
-      q.selectedIndex = null;
-    });
-    this.loadQuestions(container);
+    this.data.forEach((q) => (q.selectedIndex = null));
+    this.storage.clear();
+    this.load(container);
   }
 }
