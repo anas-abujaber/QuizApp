@@ -18,4 +18,6 @@ submitBtn.addEventListener("click", () => {
   );
 });
 
-restartBtn.addEventListener("click", () => {});
+restartBtn.addEventListener("click", () => {
+  quizApp.reset();
+});
