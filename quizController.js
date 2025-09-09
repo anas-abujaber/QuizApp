@@ -8,4 +8,12 @@ export class QuizController {
       container.append(q.create());
     });
   }
+  grade() {
+    const total = this.data.length;
+    const correct = this.data.filter((q) => q.isCorrect()).length;
+    const percent = Math.round((correct / total) * 100);
+    return { correct, total, percent };
+  }
+
+  reset() {}
 }

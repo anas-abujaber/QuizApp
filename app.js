@@ -7,5 +7,15 @@ const restartBtn = document.getElementById("restart");
 
 const quizApp = new QuizController(questionsData);
 
-
 quizApp.loadQuestions(quiz);
+
+submitBtn.addEventListener("click", () => {
+  const { correct, total, percent } = quizApp.grade();
+  alert(
+    `Score: ${correct}/${total} (${percent}%)\n${
+      percent >= 70 ? "PASS ✅" : "FAIL ❌"
+    }`
+  );
+});
+
+restartBtn.addEventListener("click", () => {});

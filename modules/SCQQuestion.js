@@ -19,12 +19,14 @@ export class SCQQuestion extends Question {
       btn.addEventListener("click", () => {
         if (btn.classList.contains("active")) {
           btn.classList.remove("active");
+          this.selectedIndex = null;
           return;
         }
 
         opts.querySelector(".option.active")?.classList.remove("active");
 
         btn.classList.add("active");
+        this.selectedIndex = i;
       });
 
       opts.append(btn);
@@ -34,5 +36,6 @@ export class SCQQuestion extends Question {
   }
 
   isCorrect() {
+    return this.selectedIndex === this.answerIndex;
   }
 }

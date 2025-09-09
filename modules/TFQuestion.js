@@ -20,12 +20,14 @@ export class TFQuestion extends Question {
       btn.addEventListener("click", () => {
         if (btn.classList.contains("active")) {
           btn.classList.remove("active");
+          this.selectedIndex = null;
           return;
         }
 
         opts.querySelector(".option.active")?.classList.remove("active");
 
         btn.classList.add("active");
+        this.selectedIndex = i;
       });
 
       opts.append(btn);
@@ -34,5 +36,9 @@ export class TFQuestion extends Question {
     return wrap;
   }
 
-  isCorrect() {}
+  isCorrect() {
+    if (this.selectedIndex == null) return false;
+    const chosen = this.options[this.selectedIndex].toLowerCase();
+    return (chosen === "true") === this.correct;
+  }
 }
