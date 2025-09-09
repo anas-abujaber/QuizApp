@@ -1,5 +1,5 @@
 
-import { SCQQuestion } from "../modules/SCQQuestion.js";
+import { SCQQuestion } from "../modules/SCQuestion.js";
 import { TFQuestion } from "../modules/TFQuestion.js";
 // import { MCQQuestion } from "../modules/MCQQuestion.js";
 
